@@ -1,0 +1,299 @@
+.column-right{
+            padding-bottom: 20px !important;
+        }
+        .column-right .name{
+            font-size: 28px;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #36c;
+        }
+        .column-right .title{
+            font-size: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .column-right .subtitle{
+            font-size: 12px;
+            color: #249ef7;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        ul.upload-list{
+            padding: 20px;
+        }
+        ul.upload-list li:hover{
+            border: 3px solid #21577f;
+        }
+        ul.upload-list li{
+                list-style-type: none;
+                padding: 2px 10px;
+                font-size: 14px;
+                display: inline-block;
+                border: 3px solid #ccc;
+                margin: 10px 10px;
+                text-align: center;
+                padding: 5px;
+                cursor: pointer;
+                position: relative;
+                text-align-last: center;
+                -moz-text-align-last: center;
+                min-height: 180px;
+                vertical-align: top;
+        }
+        ul.upload-list li:hover > .fa-times{
+            display: block;
+        }
+        ul.upload-list li .fa-times{
+                position: absolute;
+                top: 3px;
+                right: 5px;
+                color: #ccc;
+                font-size: 17px;
+                display: none;
+        }
+        ul.upload-list li .fa-times:hover{
+            color: #ffb1a3;
+        }
+        ul.upload-list li .date{
+            font-size: 12px;
+        }
+        ul.upload-list li .name-title{
+            font-size: 16px;
+            width: 180px;
+            margin: 20px 0;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        ul.upload-list li .delete{
+            font-weight: bold;
+            font-size: 13px;
+            color: #777;
+        }
+        ul.upload-list li .button{
+            float: right;
+            color: white;
+            padding: 2px 10px;
+            display: inline-block;
+            margin: 0 3px;
+        }
+        ul.upload-list li .yes{
+            background-color: tomato;
+        }
+        ul.upload-list li .no{
+            background-color: #bbb;
+        }
+        #video-resume-cover .video-title{
+            text-align: left;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .bottom-panel input.save{
+            color: white;
+            background-color: #36c;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 7px;
+            float: left;
+            border: 0;
+            outline: 0;
+            width: auto;
+            cursor: pointer;
+        }
+        .panel{
+            border-bottom: 1px solid #eee;
+            padding: 25px 50px;
+        }
+        .panel:last-child{
+            border-bottom: 0;
+        }
+        .column-right{
+            padding: 0 !important;
+            border: 1px solid #ddd;
+        }
+        .column .upload-container{
+            width: 60%;
+        }
+        .column .top-panel{
+            font-size: 22px;
+        }
+        .column .middle-panel{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+            font-size: 12px;
+        }
+        .column .middle-panel input[type="text"], .column .middle-panel textarea{
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            outline: 0
+        }
+        .column .middle-panel textarea {
+            margin-top: 10px;
+            width: 100%;
+            height: 100px;
+            font-size: 12px;
+            font-family: inherit;
+        }
+        .column .middle-panel table tr td {
+            padding: 4px 0px;
+        }
+        .column .middle-panel table tr td:first-child{
+            padding-right: 20px;
+        }
+        .column .middle-panel input[type="text"]:focus, .column .middle-panel textarea:focus{
+            border: 2px solid #249ef7;
+        }
+        .upload-profile-picture:hover{
+            background-color: #249ef7;
+        }
+        .upload-profile-picture{
+            background-color: #47b1ff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .list-add{
+            list-style-type: decimal;
+            margin: 5px 0;
+        }
+        .list-add li input{
+            padding: 10px 10px;
+            border: 1px solid #bbb;
+            outline: 0;
+            border-radius: 7px;
+            margin: 5px 0;
+        }
+        .list-add li input:focus{
+            border: 1px solid #249ef7;
+        }
+        .list-add li .fa-times{
+            color: #aaa;
+            font-size: 20px;
+            position: relative;
+            right: -8px;
+            top: 2px;
+            cursor: pointer;
+        }
+        .list-add li .fa-times:hover{
+            color: tomato;
+        }
+        .add-li{
+                cursor: pointer;
+                border: 1px solid #bbb;
+                padding: 6px 15px;
+                border-radius: 7px;
+                display: inline-block;
+        }
+        td.resume{
+            vertical-align: top;
+            padding: 10px 20px !important;
+        }
+        td.resume .resume_container{
+                color: #36c;
+                border: 1px solid #ccc;
+                padding: 5px 20px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+        }
+        td.resume .resume_title{
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        td.resume .resume_date{
+            color: #444;
+        }
+        table.roles{
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        table.roles tr td{
+            background-color: #eee;
+            text-align: center;
+            width: 33%;
+            padding: 10px 0 !important;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            cursor: pointer;
+        }
+        table.roles tr td:hover{
+            background-color: #ddd;
+        }
+        table.roles tr td.unselected{
+            opacity: .4;
+            pointer-events: none;
+        }
+        table.roles tr td.selected{
+            background-color: #ccc;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .not-complete{
+            opacity: .6;
+            cursor: default !important;
+        }
+        ul.missing li{
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+            text-decoration: none;
+        }
+        ul.missing a li{
+            margin: 10px;
+            color: tomato;
+            text-decoration: underline;
+        }
+        .required{
+            color: tomato;
+        }
+        .progress-container{
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            position: relative;
+        }
+        .progress-container .progress{
+               width: 0;
+                line-height: 30px;
+                background-color: #c1e0f7;
+                color: black;
+                font-weight: 600;
+                height: 100%;
+                box-sizing: border-box;
+                border-radius: 10px;
+        }
+        .progress-container .progress-text{
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 14px;
+        }
+        .progress-sub{
+            font-size: 12px;
+            margin: 10px 0 0 5px;
+        }
+        .middle-panel .title{
+                border: 0;
+                font-size: 16px;
+                margin-bottom: 20px;
+                margin-top: 0;
+        }
+        .panel.text{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+            padding: 40px;
+        }
+        .panel.video-resume-blog{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+        }
+

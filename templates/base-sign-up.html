@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <style>
+        .input-container{
+            background-color: #fff;
+            width: 600px;
+        }
+        .input-container .top{
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding: 50px 50px;
+        }
+        .input-container .top .title{
+            font-size: 20px;
+            padding-bottom: 15px;
+        }
+        .input-container .top .subtitle{
+            font-size: 14px;
+        }
+        .input-container form{
+            padding: 20px 80px;
+        }
+        .input-container table{
+            width: 100%;
+        }
+        .input-container form td{
+            font-size: 12px;
+            padding: 10px 0;
+        }
+        .input-container form td:has(input){
+            width: 70%;
+        }
+        .input-container form td .asterix{
+            color: #E82F3A;
+        }
+        .input-container form td input,.input-container form td textarea,.input-container form td select{
+            padding: 10px 10px;
+            outline: 0;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-container form .next-container{
+            padding-top: 20px;
+        }
+        .input-container form .next-button{
+            background-color:#1c1c69; /*#e82f3a;*/
+            font-size: 14px;
+            border-radius: 5px;
+            padding: 10px 30px;
+            letter-spacing: .05em;
+            color: white;
+            display: inline-block;
+            float: right;
+            cursor: pointer;
+        }
+        .next-container-top{
+            display: inline-block;
+            font-size: 13px;
+            color: #999;
+        }
+        .next-container-top a{
+            color: #1c1c69; /*#e82f3a;*/
+        }
+        .two-column-container {
+            margin-bottom: 120px;
+            margin-top: 80px;
+        }
+        .left-text{
+            padding: 0 20px;
+            text-align: center;
+        }
+        .left-text .title{
+            font-size: 22px;
+            font-weight: 600;
+            padding-bottom: 20px;
+            letter-spacing: .05em;
+        }
+        .left-text .sub-title{
+            line-height: 30px;
+            color: #777;
+            padding-bottom: 20px;
+        }
+        .left-text .bottom{
+            font-size: 16px;
+            letter-spacing: 0.04em;
+            padding-top: 30px;
+        }
+    </style>
+    {% block head_2 %}{% endblock head_2 %}
+{% endblock head %}
+{% block body %}
+    <div class="two-column-container">
+        <div class="column">
+            <div class="input-container">
+                <div class="top">
+                    <div class="title">
+                        {% block title %}{% endblock title %}
+                    </div>
+                    <div class="subtitle">
+                        {% block subtitle %}{% endblock subtitle %}
+                    </div>
+                </div>
+                {% block form %}{% endblock form %}
+            </div>
+        </div>
+        <div class="column">
+            <div class="left-text">
+                {% block lefttext %}{% endblock lefttext %}
+            </div>
+        </div>
+
+    </div>
+{% endblock body %}
+{% block script %}
+
+{% block additional_script %}{% endblock additional_script %}
+{% endblock script %}

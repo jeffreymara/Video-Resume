@@ -1,0 +1,197 @@
+{% extends "base-sign-up.html" %}
+
+{% block head_2 %}<title>HiredTube | Sign Up</title>{% endblock head_2 %}
+{% block title %}Create your profile and start receiving offers today!{% endblock title %}
+{% block subtitle %}Stand out when applying to the world's most innovative companies{% endblock subtitle %}
+{% block form %}
+                <form class="create_account">
+                    <table>
+                        <tr>
+                            <td>
+                                Email<span class="asterix">*</span>
+                            </td>
+                            <td>
+                                <input id="email" type="text" name="email" placeholder="you@example.com" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                First Name<span class="asterix">*</span>
+                            </td>
+                            <td>
+                                <input id="first_name" type="text" name="first_name" placeholder="First Name" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Last Name<span class="asterix">*</span>
+                            </td>
+                            <td>
+                                <input id="last_name" type="text" name="last_name" placeholder="Last Name" required>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Password<span class="asterix">*</span>
+                            </td>
+                            <td>
+                                <input id="password" type="password" name="password" placeholder="Create password" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Confirm Password<span class="asterix">*</span>
+                            </td>
+                            <td>
+                                <input id="confirm_password" type="password" name="confirm_password" placeholder="Confirm password" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="next-container">
+                        <div class="next-container-top">
+                            <div>Already have an account?</div>
+                            <div><a href="/">Sign in.</a></div>
+                        </div>
+                        <input class="next-button" type="submit" value="SIGN UP">
+                        <div style="clear: both;"></div>
+                    </div>
+                </form>
+{% endblock form %}
+{% block lefttext %}
+                <div class="title">Why HiredTube</div>
+                <div class="sub-title">
+                   Create one profile and top companies will apply to you<br /><br/>
+                    We help you utilize video to add personality to your resume<br /><br/>
+                    You may hide your profile from current employers
+
+                </div>
+
+{% endblock lefttext %}
+        </div>
+
+    </div>
+{% block page_2_html %}
+    '<form>\
+                            <table>\
+                                <tr>\
+                                    <td>\
+                                        Position<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <select><option>Business Analyst</option><option>Associate</option><option>Engagement Manager</option>\
+                                        <option>Associate Principle</option><option>Partner</option></select>\
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Summary<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <textarea placeholder="200 character max"></textarea>\
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Bullet 1<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <textarea placeholder="80 character max"></textarea>\
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Bullet 2<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <textarea placeholder="80 character max"></textarea>\
+                                    </td>\
+                                </tr>\
+                            </table>\
+                            <div class="next-button">CONTINUE</div><div style="clear: both;"></div>\
+                        </form>'
+{% endblock page_2_html %}
+{% block page_3_html %}
+    '<form>\
+                            <table>\
+                                <tr>\
+                                    <td>\
+                                        Resume<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <input type="file" name="pic" accept="image/*">\
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Cover Letter\
+                                    </td>\
+                                    <td><input type="file" name="pic" accept="image/*">\
+                                        \
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Video Resume<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <input type="file" name="pic" accept="image/*">\
+                                    </td>\
+                                </tr>\
+                            </table>\
+                            <div class="next-button">SUBMIT</div><div style="clear: both;"></div>\
+                        </form>'
+{% endblock page_3_html %}
+{% block lefttext_3 %}
+    '<div class="title">Want some tips?</div>\
+                <div class="sub-title">\
+                    <b><u>Keep it short</u></b> - your video resume should be between 30 and 90 seconds</br></br>\
+                    <b><u>Be professional</u></b> - be creative, but don\'t deviate from the workplace demeanor </br></br>\
+                    <b><u>Don\'t read your resume</u></b> - The whole point of a video presentation is to offer a potential employer greater insight into you than a traditional resume can</br></br>\
+                </div>'
+{% endblock %}
+{% block additional_script %}
+    sign_up_debounce = true
+    sign_up_lock = false
+    $('body').on("submit","form.create_account",function(e){
+        e.preventDefault();
+        if(sign_up_debounce && !sign_up_lock){
+            sign_up_debounce = false
+            if($('.create_account #password').val() != $('.create_account #confirm_password').val()){
+               alert("Passwords do not match.")
+                sign_up_debounce = true
+            }
+            else{
+                $.ajax({
+                    type:"POST",
+                    url:'/ajax/',
+                    data: {
+                        name: "create_account",
+                        first_name: $('.create_account #first_name').val(),
+                        last_name: $('.create_account #last_name').val(),
+                        email: $('.create_account #email').val(),
+                        password: $('.create_account #password').val(),
+                        screen_width: screen.width,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(data){
+                        if(data == "success"){
+                            sign_up_lock = true
+                            window.location.href = "/edit-profile/summary/"
+                        }
+                        else{
+                            alert("This email has already been registered")
+                            sign_up_debounce = true
+                        }
+                    },
+                });
+                return false;
+            }
+        }
+    });
+
+    fbq('track', 'ViewContent', {
+        value: 3.50,
+        currency: 'USD'
+        });
+{% endblock additional_script %}

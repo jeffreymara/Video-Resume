@@ -1,0 +1,86 @@
+{% extends "base-profile.html" %}
+
+{% block title %}
+    <title>{{page}}</title>
+{% endblock title %}
+{% block additional_style %}
+    <style>
+
+    </style>
+{% endblock additional_style %}
+{% block left-column %}
+    <div class="container filter">
+                <input placeholder="Search" type="text">
+                <div class="title">Show</div>
+                <ul>
+                    <li><input type="radio"> All</li>
+                    <li><input type="radio"> Bookmarked</li>
+                    <li><input type="radio"> Hidden</li>
+                </ul>
+                <div class="title">Sort</div>
+                <ul>
+                    <li><input type="checkbox"> All</li>
+                    <li><input type="checkbox">Bookmarkeed</li>
+                    <li><input type="checkbox"> Hidden</li>
+                </ul>
+                <div class="title">Budget</div>
+                <ul>
+                    <li><input type="radio"> All</li>
+                    <li><input type="radio"> Bookmarkeed</li>
+                    <li><input type="radio"> Hidden</li>
+                </ul>
+                <div class="title">Salary</div>
+                <ul>
+                    <li><input type="checkbox"> $40,000-$50,000</li>
+                    <li><input type="checkbox"> $50,000-$60,000</li>
+                    <li><input type="checkbox"> $60,000-$70,000</li>
+                    <li><input type="checkbox"> $70,000-$80,000</li>
+                    <li><input type="checkbox"> $80,000-$90,000</li>
+                    <li><input type="checkbox"> $90,000-$100,000</li>
+                    <li><input type="checkbox"> $100,000-$120,000</li>
+                    <li><input type="checkbox"> $120,000-$140,000</li>
+                    <li><input type="checkbox"> >$140,000</li>
+                </ul>
+            </div>
+{% endblock left-column %}
+{% block right-column %}
+    {% for posting in posting_list %}
+        <div class="posting">
+            <div class="top">
+                <div class="info">
+                    <div class="two-column-container">
+                        <div class="column">
+                            <div class="title">
+                                <a href="/talent/1/">{{posting.0}}</a>
+                            </div>
+                            <div class="description">
+                                {{posting.1}}
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="details">
+                                <ul>
+                                    <li><i class="fa fa-user"></i> <span class="name">Hiring Manger</span> <span class="right">Jeffrey Smith</span></li>
+                                    <li><i class="fa fa-user"></i> <span class="name">Team</span> <span class="right">LDA</span></li>
+                                    <li><i class="fa fa-user"></i> <span class="name">Date Posted</span> <span class="right">Nov. 29</span></li>
+                                    <li><i class="fa fa-user"></i> <span class="name">Applications</span> <span class="right">17</span></li>
+                                </ul>
+                                {%if page == "Companies" %}
+                                    <a href="/talent/"><div class="view">View Positions</div></a>
+                                {%else%}
+                                    <a href="/talent/1/"><div class="view">View Candidates</div></a>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {%endfor%}
+{% endblock right-column %}
+
+
+{% block script %}
+
+{% endblock script %}

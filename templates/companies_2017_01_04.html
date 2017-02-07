@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Hired Tube</title>
+    <style>
+        .wrapper{
+            width: 100%;
+            text-align: justify;
+            -moz-text-align-last:  justify; /* Code for Firefox */
+            text-align-last: justify;
+            margin: 0 auto;
+        }
+        .talent-container{
+            width: 49%;
+            background-color: #fff;
+            display: inline-block;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            text-align: left;
+            -moz-text-align-last: left; /* Code for Firefox */
+            text-align-last: left;
+            vertical-align: top;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            font-size: 12px;
+            position: relative;
+        }
+        .talent-container .name{
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+        .talent-container .video-resume:hover{
+            background-color: #eee;
+        }
+        .talent-container .video-resume{
+            margin: 15px auto;
+            background-color: #fff;
+            color: black;
+            padding: 8px 20px;
+            border-radius: 6px;
+            border: 2px solid black;
+            display: block;
+            text-align-last: center;
+            text-align: center;
+            width: 40%;
+            cursor: pointer;
+
+
+        }
+        .talent-container .icons{
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+         .talent-container .icons .fa{
+            position: relative;
+            cursor: pointer;
+        }
+        .talent-container .position{
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .talent-container .summary{
+            font-style: italic;
+            margin-bottom: 15px;
+            min-height: 53px;
+        }
+        .talent-container .references{
+            text-align-last: center;
+            -moz-text-align-last: center;
+            color: #777;
+        }
+        .talent-container .bullets li{
+            padding-bottom: 10px;
+            font-size: 10px;
+            min-height: 28px;
+        }
+        .talent-container .reference-wrap{
+            padding: 0 10px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+        .talent-container .reference-wrap:hover > .arrow-box{
+            display: block;
+        }
+        .arrow-box {
+        	position: absolute;
+            background: #444;
+            display: none;
+            top: -44px;
+            left: -55px;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100px;
+            z-index: 2;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            font-family: Open Sans;
+        }
+        .arrow-box:after {
+        	top: 100%;
+        	left: 50%;
+        	border: solid transparent;
+        	content: " ";
+        	height: 0;
+        	width: 0;
+        	position: absolute;
+        	pointer-events: none;
+        	border-color: rgba(68, 68, 68, 0);
+        	border-top-color: #444;
+        	border-width: 10px;
+        	margin-left: -10px;
+        }
+        .arrow-box.arrow-box-star{
+            transform: translateX(40%);
+        }
+        .arrow-box-star .fa-star{
+            color: gold;
+        }
+        .talent-container .icons .fa:hover > .arrow-box{
+            display: block;
+        }
+        .talent-container .bar{
+            width: 60px;
+            margin: 25px auto;
+            height: 1px;
+            background-color: #777;
+        }
+        .talent-container .fa-minus{
+            color: #999;
+        }
+        .container.filter{
+                background-color: #fff;
+                border-radius: 5px;
+                padding: 0;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+        }
+        .main.two-column-container .column:first-child {
+            width: 20%;
+        }
+        .main.two-column-container .column:nth-child(2) {
+            width: 80%;
+            background-color: #fff;
+        }
+        .filter{
+            font-size: 12px;
+            color: #444;
+        }
+        .filter .title {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+            padding-bottom: 12px;
+            padding: 13px;
+            background-color: rgba(238, 238, 238, 0.25);
+        }
+        .filter ul{
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .filter ul:last-child{
+            border-bottom: 0;
+        }
+        .filter ul li{
+            margin: 10px 0;
+            position: relative;
+        }
+        .filter.city ul li{
+            margin-left: 20px;
+        }
+        .container.filter input[type="text"]{
+            padding: 10px 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            outline: 0;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        .column .posting{
+            border-top: 2px solid #ccc;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .column .posting:first-child{
+            border-top: 0;
+        }
+        .column .posting .top .info .title{
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .column .posting .top .info .description{
+            font-size: 12px;
+            color: #777;
+        }
+        .info .two-column-container{
+            width: 100%;
+        }
+        .info .two-column-container .column:first-child {
+            width: 70%;
+        }
+        .info .two-column-container .column:nth-child(2) {
+            width: 30%;
+        }
+        .details ul li{
+            border-top: 1px solid #ccc;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .details ul li:first-child{
+            border-top: none;
+        }
+        .details ul li .fa{
+            padding-right: 10px;
+        }
+        .details ul li .right{
+            float: right;
+        }
+        .talent-container .video_description iframe{
+            width: 100% !important;
+            height: 300px;
+        }
+        .talent-container .name img{
+            height: 35px;
+        }
+        .talent-container .name .text{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 35px;
+            padding-left: 10px;
+        }
+        .wrapper .whos-hiring{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+            font-weight: bold;
+            font-size: 20px;
+            padding-bottom: 10px;
+        }
+         .company_side_list{
+
+         }
+        .company_side_list li{
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .company_side_list li .name{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 25px;
+            padding-left: 10px;
+            float: right;
+            font-size: 16px;
+        }
+        .company_side_list li img{
+            height: 25px;
+        }
+        #cover-posting .title{
+                margin-bottom: 30px;
+        }
+        #cover-posting .button{
+                display: block;
+                margin: 10px auto;
+                border: 2px solid black;
+                padding: 5px 20px;
+                cursor: pointer;
+                width: 200px;
+                text-align: center;
+                font-size: 14px;
+                border-radius: 5px;
+        }
+        html{
+            min-width: 1300px;
+        }
+        .inspire-back{
+            color: #34c;
+            text-decoration: underline;
+            text-align-last: left;
+            -moz-text-align-last: left;
+        }
+        .main.two-column-container .column:first-child {
+            width: 80%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding-left: 25px;
+        }
+        .main.two-column-container .column:nth-child(2) {
+            width: 20%;
+            background: none;
+            padding-right: 0;
+        }
+        .loading{
+            text-align-last: center;
+            -moz-text-align-last: center;
+            text-align: center;
+        }
+        .sign-up {
+            display: block;
+            width: 80%;
+            margin: 15px auto;
+            background-color: rgba(27,127,204,.8);
+            padding: 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            border: none;
+        }
+
+    </style>
+{% endblock head %}
+{% block body %}
+    <div class="lower-head">
+        <div class="head-wrap">
+            <div class="text">
+                <div class="top">Create 1 profile and top companies apply to you</div>
+                <div class="bottom">Utilize video to “jump off the page”  and receive more offers</div>
+            </div>
+            <div class="buttons">
+                <a href="/sign-up/">
+                    Create Your Profile
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main two-column-container" style="width: 1300px">
+        <div class="column">
+                <div class="posting">
+                    <div class="wrapper">
+                        <div class="whos-hiring">Video inspiration from hiring companies</div>
+                        <div class="inspire-back"><a href="/sign-up/">Create your profile to inspire them back</a></div>
+                        {%for company in company_list|slice:"6" %}
+                            <div class="talent-container" data-roles="{{company.open_roles}}">
+                                <div class="name"><img src="{{company.profile_image_external}}"/> <div class="text">{{company.name}}</div></div>
+                                <div class="summary">{{company.short_description}}</div>
+                                <div class="video_description">{{company.video_description | safe}}</div>
+                                <!--<a href="{{company.job_board_external}}" target="_blank" class="video-resume-link" data-company-name="{{company.name}}"><div class="video-resume">Apply to Positions</div></a>-->
+                                <!--<div class="references">
+                                    <div class="reference-wrap">
+                                        <i class="fa fa-globe"></i> {{company.location}}
+                                    </div>
+
+                                    <div class="reference-wrap">
+                                        <i class="fa fa-users"></i> {{company.open_roles}} open roles
+                                    </div>
+                                </div>-->
+                            </div>
+                        {%endfor%}
+                    </div>
+                </div>
+        </div>
+
+        <div class="column">
+            <div class="container filter city">
+                <div class="title">Hired Tube Locations</div>
+                <ul>
+                    <li><i class="fa-li fa fa-building-o"></i> Boston</li>
+                    <li><i class="fa-li fa fa-building-o"></i> New York</li>
+                    <li><i class="fa-li fa fa-building-o"></i> San Francisco</li>
+                </ul>
+                <div class="sign-up">
+                    <a href="/sign-up/">
+                        Create Profile
+                    </a>
+                </div>
+            </div>
+            <div class="container filter">
+                <div class="title">Hiring Companies</div>
+                <ul class="company_side_list">
+                    {% for company in company_list %}
+                    <li>
+                        <img src="{{company.profile_image_external}}"/>
+                        <span class="name">{{company.name}}</span>
+                    </li>
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover" id="cover-posting">
+        <div class="cover-sub-container">
+            <i class="fa fa-times"></i>
+            <div class="title"></div>
+            <div class="button">Create Video Resume</div>
+            <div class="button">Continue to Positions</div>
+        </div>
+    </div>
+
+
+{% endblock body %}
+{% block script %}
+    $('body').on('click','.video-resume-link',function(e){
+        e.preventDefault();
+        company_name = $(this).attr("data-company-name")
+        $('#cover-posting .title').text(company_name+" used video to inspire you. Use video to inspire "+company_name+"!\
+                                            We believe that video resume is the best way for top candidates to stand out\
+                                            in a pool of talented applicants. We will help you put your best foot forward.")
+        $('#cover-posting').show()
+    });
+
+    $(window).scroll(function() {
+        load_companies();
+    });
+    debounce = true
+    function load_companies(){
+        var scrollPosition = window.pageYOffset;
+        var windowSize     = window.innerHeight;
+        var bodyHeight     = document.body.offsetHeight;
+        var distance_to_bottom = Math.max(bodyHeight - (scrollPosition + windowSize), 0);
+        company_index = $('.talent-container:last-child').attr("data-roles")
+        if(distance_to_bottom<500){
+            if(debounce == true && company_index > 2){
+                debounce = false
+                $('.column .posting').append('<div class="loading">Loading More Companies...</div>')
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"load-companies",
+                                company_index:company_index,
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        $('.loading').remove();
+                        $('.talent-container:last-child').after(data)
+                        debounce = true
+                     },
+                });
+            }
+        }
+    }
+{% endblock script %}

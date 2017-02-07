@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{{userinfo.full_name}}</title>
+    <style>
+        .wrapper{
+            width: 100%;
+            text-align: justify;
+            -moz-text-align-last:  justify; /* Code for Firefox */
+            text-align-last: justify;
+            margin: 0 auto;
+        }
+        .talent-container{
+            width: 30%;
+            background-color: #fff;
+            display: inline-block;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            text-align: left;
+            -moz-text-align-last: left; /* Code for Firefox */
+            text-align-last: left;
+            vertical-align: top;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            font-size: 12px;
+            position: relative;
+        }
+        .talent-container .name{
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+        .talent-container .video-resume{
+            margin: 15px auto;
+            background-color: #1c1c69;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 10px;
+            display: block;
+            text-align-last: center;
+            text-align: center;
+            width: 40%;
+            cursor: pointer;
+
+
+        }
+        .talent-container .icons{
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+         .talent-container .icons .fa{
+            position: relative;
+            cursor: pointer;
+        }
+        .talent-container .position{
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .talent-container .summary{
+            font-style: italic;
+            margin-bottom: 15px;
+            min-height: 53px;
+        }
+        .talent-container .references{
+            text-align-last: center;
+            -moz-text-align-last: center;
+            color: #777;
+        }
+        .talent-container .bullets li{
+            padding-bottom: 10px;
+            font-size: 10px;
+            min-height: 28px;
+        }
+        .talent-container .reference-wrap{
+            padding: 0 10px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+        .talent-container .reference-wrap:hover > .arrow-box{
+            display: block;
+        }
+        .arrow-box {
+        	position: absolute;
+            background: #444;
+            display: none;
+            top: -44px;
+            left: -55px;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100px;
+            z-index: 2;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            font-family: Open Sans;
+        }
+        .arrow-box:after {
+        	top: 100%;
+        	left: 50%;
+        	border: solid transparent;
+        	content: " ";
+        	height: 0;
+        	width: 0;
+        	position: absolute;
+        	pointer-events: none;
+        	border-color: rgba(68, 68, 68, 0);
+        	border-top-color: #444;
+        	border-width: 10px;
+        	margin-left: -10px;
+        }
+        .arrow-box.arrow-box-star{
+            transform: translateX(40%);
+        }
+        .arrow-box-star .fa-star{
+            color: gold;
+        }
+        .talent-container .icons .fa:hover > .arrow-box{
+            display: block;
+        }
+        .talent-container .bar{
+            width: 60px;
+            margin: 25px auto;
+            height: 1px;
+            background-color: #777;
+        }
+        .talent-container .fa-minus{
+            color: #999;
+        }
+        .container.filter{
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 0px;
+            padding: 20px;
+        }
+        .main.two-column-container .column:first-child {
+            width: 20%;
+        }
+        .main.two-column-container .column:nth-child(2) {
+            width: 80%;
+            background-color: #fff;
+        }
+        .filter{
+            font-size: 12px;
+            color: #444;
+        }
+        .filter .title{
+            font-weight: bold;
+        }
+        .filter ul{
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .filter ul:last-child{
+            border-bottom: 0;
+        }
+        .filter ul li{
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        .filter ul li:hover{
+            text-decoration: underline;
+        }
+        .container.filter input[type="text"]{
+            padding: 10px 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            outline: 0;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        .column .posting{
+            border-top: 2px solid #ccc;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .column .posting:first-child{
+            border-top: 0;
+        }
+        .column .posting .top .info .title{
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .column .posting .top .info .title:hover{
+            text-decoration: underline;
+        }
+        .column .posting .top .info .description{
+            font-size: 12px;
+            color: #777;
+        }
+        .info .two-column-container{
+            width: 100%;
+        }
+        .info .two-column-container .column:first-child {
+            width: 70%;
+        }
+        .info .two-column-container .column:nth-child(2) {
+            width: 30%;
+        }
+        .details ul li{
+            border-top: 1px solid #ccc;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .details ul li:first-child{
+            border-top: none;
+        }
+        .details ul li .fa{
+            padding-right: 10px;
+        }
+        .details ul li .right{
+            float: right;
+        }
+        .details .view{
+            border: 3px solid black;
+            border-radius: 5px;
+            padding: 6px 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .container{
+            width: 80%;
+            max-width: 1000px;
+            margin: 100px auto;
+        }
+        .panel{
+            margin: 25px 0;
+        }
+    </style>
+
+{% endblock head %}
+{% block body %}
+    <div class="container">
+
+        <div class="panel text">
+            <div class="title text">
+            Privacy Policy
+        </div>
+            Your privacy is very important to 10Thoughts LLC and its affiliated companies (“Company,” “we,” “us,” or “our”). This Privacy Notice states the terms under which your Personal Information (defined below), non-identifying information about you, and other content submitted by you is collected and used when you access the website at http://www.10Thoughts.com (the “Site”) or submit such information or content in order to access features, content, social media, or applications or purchase Company products offered from time to time by Company in connection with the Site or a mobile application (collectively, the “Offerings”), whether you are a “Visitor” (meaning you simply browse the Site or the Offerings) or you are a “Subscriber” (meaning you have voluntarily submitted your Personal Information in order to receive the Offerings).  The Site and the Offerings are owned by Company.
+
+Please read this page carefully. By accessing or using the Site or the Offerings, you agree to be bound by this Privacy Notice.  If you do not agree with this Privacy Notice, please do not use the Site or the Offerings.
+
+Information Collected by Company
+
+Personal Information
+
+“Personal Information” means all personally-identifiable information (including but not limited to your name, credit or debit card information, e-mail/IP addresses, or other contact information) that you submit when accessing the Site or in connection with the Offerings.
+
+Company does not collect Personal Information unless you voluntarily submit such information to Company when you use the Offerings, send inquiries to Company, or participate in certain activities on the Site. For example, we collect Personal Information when you choose to use certain features of the Site or the Offerings, including when you: (i) make purchases on the Site, if applicable, or through the Offerings; or (ii) consent to receive commercial/promotional email messages about our Site or Offerings. You may not be able to receive certain Offerings if you decline to submit Personal Information.
+
+Demographic Information
+
+We may also request your demographic information when you seek the Offerings. This information includes but is not limited to your business school affiliation (if applicable).
+
+Information Gathered Automatically
+
+Company automatically collects certain non-identifying information about you when you use the Site or the Offerings. Examples of such non-identifying information includes but is not limited to your movement about the Site and the Offerings, the pages on the Site you visit most frequently, the type of browser or computer operating system you use, or the domain name of the website from which you link to the Site.
+
+Company also uses cookies. A “cookie” is a piece of data that is stored on your computer and that is tied to certain non-identifying information about you. Company may store cookies (or similar types of files) on your computer’s hard drive in order to track and target your interests and preferences. We also use this non-identifying information to customize advertising/marketing information, databases, and Site material and to otherwise improve your user experience on the Site or the Offerings. If you object to this practice, please consult your browser’s documentation for instructions on erasing or blocking cookies. We recommend that you allow cookies to be stored on your computer, however, as they may be needed to properly use the Site and the Offerings.
+
+Your Content
+
+Company assumes no responsibility for securing any other content you submit on the Site or otherwise in order to receive Offerings. Company has no obligation to use, or solicit or enable others to use, for any purpose, any content you submit.
+
+Use/Disclosure of Personal Information and Other Information Collected By Company
+
+Company will not disclose, use, or sell your Personal Information to third parties except as set forth herein. We may disclose your Personal Information to our suppliers and other third parties who need to know in order to deliver the Offerings on behalf of Company. For example, we may use third-party service providers to perform certain services, including operating our ecommerce pages, delivering products to you, and managing our lists of subscribers. Otherwise, we will not sell or otherwise transfer your Personal Information to unaffiliated third parties without your consent.
+
+We may use your Personal Information, demographic information, and information that we automatically collect in any or all of the following ways:
+
+to personalize your experience and better respond to your individual needs;
+to improve the Site and the Offerings;
+to improve customer service;
+to administer contests, promotions, surveys or other features for the Site and the Offerings;
+to send periodic mailings concerning information and updates pertaining to Company;
+as an asset in connection with a proposed or actual merger or sale (including any transfers made as part of an insolvency or bankruptcy proceeding) involving all or part of our business or as part of a corporate reorganization, stock sale or other change in control;
+for internal business and marketing purposes; and
+to share with our parent, subsidiaries, divisions, and affiliates.
+
+Notwithstanding the foregoing or any other statements or representations here or elsewhere on the Site or Offerings, Company reserves the right to disclose any Personal Information in our possession if we believes such disclosure is necessary: (1) to conform to legal requirements or to respond to a subpoena, search warrant or other legal process received by Company, whether or not a response is required by applicable law; (2) to enforce or protect Company’s rights; or (3) to protect the safety of Company Visitors and Subscribers and members of the general public.
+
+WE ARE NOT RESPONSIBLE FOR PERSONAL INFORMATION OR NON-IDENTIFYING INFORMATION YOU CHOOSE TO SUBMIT IN FORUMS SUCH AS FACEBOOK, TWITTER, OTHER SOCIAL MEDIA PLATFORMS, MESSAGE BOARDS, CHAT ROOMS, OR ANY PUBLIC AREA OF THE SITE OR THE OFFERINGS.
+
+Additional Privacy Protections for Children
+
+Neither the Site nor the Offerings are designed for or targeted to children under the age of 13. Company will never knowingly solicit or collect the Personal Information of a child under the age of 13 through the Site or the Offerings unless such Personal Information is submitted by that child’s parent or guardian in connection with the Offerings. If Company reasonably believes that Personal Information of a child under the age of 13 has been submitted to the Site or the Offerings by a child under the age of 13, Company will immediately delete such Personal Information.
+
+Security
+
+Company has reasonable security measures in place to protect the Personal Information you submit to the Site and otherwise in order to receive the Offerings. To prevent unauthorized access, maintain data accuracy, and ensure the correct use of Personal Information, we maintain physical, electronic, and managerial procedures to safeguard and secure the information and data stored on our systems. While no computer system or server is completely secure, we believe the measures we implement reduce security problems.
+
+Notwithstanding the foregoing, Company cannot guarantee the security of your Personal Information. When you communicate with Company electronically or otherwise submit your Personal Information, your communication is not necessarily secure and is subject to all of the risks of communication, such as unauthorized entry or use, hardware or software failure, and other factors that may compromise the security of Personal Information at any time. Company assumes no responsibility for the security of any Personal Information you submit. Company reserves the right to update or otherwise alter our security practices if and when we deem appropriate.
+
+Communications with You
+
+We reserve the right to contact you regarding matters relevant to the Site or the Offerings. If you do not wish to receive communications from us, you may opt-out at any time. Requests to opt-out of receiving email from us may be submitted at http://www.10thoughts.com/contact/. Opt-out requests will be processed within ten (10) business days.
+
+Reviewing, Updating, or Deleting Your Personal Information
+
+You may review, modify or remove any of your Personal Information at any time by contacting Company at the address below. To unsubscribe from our mailing list, you may click a link within the e-mail. You may also contact us using the information set forth below if you have questions or concerns about this Privacy Notice, Company’s privacy practices, or the Offerings.
+
+Parents or guardians who submit their child’s Personal Information to the Site or otherwise in connection with the Offerings may review such Personal Information, have the Personal Information deleted, or request that there be no further collection or use of the child’s Personal Information. To review, delete, or request no further collection or use of your child’s Personal Information, please mail, fax or email your request to the address below. Your request must contain your child’s name, your name, your relationship to the child, your signature, and the date of your request and is subject to verification by Company.
+
+You may contact us at:
+
+10Thoughts LLC
+621 Nash Drive
+Charlottesville, VA 22901
+
+Modifications
+
+Company may modify this Privacy Notice at any time by posting the modified Privacy Notice on this page. Company will endeavor to use commercially reasonable efforts to notify you of any material changes to this Privacy Notice; however, you should visit this page periodically to identify and understand any changes. By continuing to access or use the Site or receive the Offerings after any modification of this Privacy Notice, you agree to be bound by such modified Privacy Notice.
+
+Links
+
+We may permit certain third parties to link to our Site and the Offerings. Additionally, the Site and the Offerings may contain links to third-party sites. Company is not responsible for the privacy notices, privacy policies or practices of any third parties, including on any third-party website. When linking to a third-party website, you should read the privacy notice stated on that website. This Privacy Notice only governs Personal Information, non-identifying information and content collected on the Site or through the Offerings.
+
+Miscellaneous
+
+This Site and the Offerings originate from the United States of America.  Company does not claim that the Site, the Offerings, or the content and features on any of the foregoing are appropriate or may be used outside of the United States of America. Access to the Site, the Offerings, or the content and features on any of the foregoing by certain persons or in certain countries may not be lawful, and any such access or use from outside of the United States of America is at your own risk and is subject to the laws of your jurisdiction.</div>
+    </div>
+
+
+{% endblock body %}
+{% block script %}
+
+{% endblock script %}

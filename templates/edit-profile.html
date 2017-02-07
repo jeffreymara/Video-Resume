@@ -1,0 +1,470 @@
+{% extends "base-profile.html" %}
+{% load static %}
+{% block title %}
+    <title>{{template_dict.title}}</title>
+{% endblock title %}
+{% block additional_style %}
+    <link rel="stylesheet" href="{% static 'profile2.css' %}">
+    <style>
+        .legend{
+            float: right;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .video-resume-blog{
+                border-top: 1px solid #ddd;
+        }
+        .faq{
+            font-size: 36px;
+            margin: 0 0 20px 0px;
+        }
+        .get-help{
+            color: #34c;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .help-submit{
+            background-color: #36c;
+            color: white;
+            margin: 40px auto 0 auto;
+            width: 100px;
+            text-align: center;
+            display: block;
+            padding: 10px 30px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .resume-list-title{
+            font-size: 20px;
+            margin-top: 15px;
+        }
+        .resume-list-subtitle{
+                font-size: 14px;
+                margin: 10px 0;
+        }
+        ul.resume-list{
+                list-style-type: disc;
+        }
+        ul.resume-list li{
+            margin: 3px 0;
+        }
+        .list-add li input[type="checkbox"]{
+            margin-right: 8px;
+            position: relative;
+            top: 2px;
+            left: 3px;
+        }
+    </style>
+{% endblock additional_style %}
+{% block left-column %}
+    <div class="container filter">
+                <div class="title">Edit Profile</div>
+                <ul>
+                    <a href="/edit-profile/summary/" {%if template_dict.key == "summary" %}style="font-weight:bold"{%endif%}>
+                        <li><i {%if userinfo.summary %}
+                                    class="fa-li fa fa-check-square"
+                               {%else%}
+                                    class="fa-li fa fa-square"
+                               {%endif%}></i> Summary
+                        </li>
+                    </a>
+                    <a href="/edit-profile/roles/" {%if template_dict.key == "roles" %}style="font-weight:bold"{%endif%}>
+                        <li>
+                            <i {%if role %}
+                               class="fa-li fa fa-check-square"
+                            {%else%}
+                                 class="fa-li fa fa-square"
+                            {%endif%}></i> Roles
+                        </li>
+                    </a>
+                    <a href="/edit-profile/job-preferences/" {%if template_dict.key == "job-preferences" %}style="font-weight:bold"{%endif%}>
+                        <li><i {%if locations %}
+                                    class="fa-li fa fa-check-square"
+                               {%else%}
+                                    class="fa-li fa fa-square"
+                               {%endif%}></i> Locations
+                        </li>
+                    </a>
+                    <a href="/edit-profile/resume/" {%if template_dict.key == "resume" %}style="font-weight:bold"{%endif%}>
+                        <li><i {%if resume %}
+                                    class="fa-li fa fa-check-square"
+                               {%else%}
+                                    class="fa-li fa fa-square"
+                               {%endif%}></i> Resume
+                        </li>
+                    </a>
+                    <a href="/edit-profile/video-resume/" {%if template_dict.key == "video-resume" %}style="font-weight:bold"{%endif%}>
+                        <li><i {%if video_resume %}
+                                    class="fa-li fa fa-check-square"
+                               {%else%}
+                                    class="fa-li fa fa-square"
+                               {%endif%}></i> Video Pitch
+                        </li>
+                    </a>
+                    <a href="/edit-profile/submit/" {%if template_dict.key == "submit" %}style="font-weight:bold"{%endif%}>
+                        <li><i class="fa-li fa fa-square"></i> Submit</li>
+                    </a>
+                </ul>
+            </div>
+{% endblock left-column %}
+{% block right-column %}
+    <form class="upload">
+        <div class="panel top-panel">
+            {{template_dict.title|safe}}
+        </div>
+        <div class="panel middle-panel">
+            {{template_dict.content|safe}}
+        </div>
+        <div class="panel bottom-panel">
+            {%if template_dict.key == "submit" %}
+                <input value="Submit Application" {%if template_dict.complete == "not_complete" %}class="save not-complete"{%else%}class="save"{%endif%} type="submit">
+            {%else%}
+                <input class="save" value="Save and Continue" type="submit">
+            {%endif%}
+            {%if template_dict.key != "submit" %}<div class="legend">Fields marked with an <span class="required">*</span> are required</div>{%endif%}
+            <div style="clear:both"></div>
+        </div>
+
+
+    </form>
+
+    <div class="cover" id="cover-upload-profile-picture">
+        <div class="cover-sub-container">
+            <i class="fa fa-times"></i>
+            <form class="upload">
+                <input type="file" required/>
+                <div class="progress"><div class="percentage"></div></div>
+                <div>Or provide link below</div>
+                <input type="text"/>
+                <input type="submit" value="Upload"/>
+                <div style="clear:both"></div>
+            </form>
+        </div>
+    </div>
+    <div class="cover" id="cover-upload-profile-picture" {%if show_welcome_message == "true" %}style="display:block"{%endif%}>
+        <div class="cover-sub-container">
+            <i class="fa fa-times"></i>
+            <div>
+                Welcome to HiredTube!  Follow the steps to create your profile.
+                Once submitted, companies will apply to
+                you - accept interview requests from roles that inspire you.
+            </div>
+        </div>
+    </div>
+    <div class="cover" id="cover-help">
+        <div class="cover-sub-container">
+            <i class="fa fa-times"></i>
+            <div>
+                Hit submit button to schedule time with a HiredTube expert - we will reach out to you via email
+            </div>
+            <div class="help-submit">Submit</div>
+        </div>
+    </div>
+{% endblock right-column %}
+
+
+{% block script %}
+
+    $('body').on("submit","form.upload",function(e){
+            e.preventDefault()
+            if( !$(this).find("input[type='submit']").hasClass("not-complete")){
+                $(this).find("input[type='submit']").val("Saving...")
+            }
+
+            if("{{template_dict.key}}"=="personal-info"){
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"personal-info",
+                                first_name:$(this).find("input[name='first_name']").val(),
+                                last_name:$(this).find("input[name='last_name']").val(),
+                                location:$(this).find("input[name='location']").val(),
+                                phone_number:"",
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        window.location.href = "/edit-profile/summary/"
+                     },
+                });
+            }
+            else if("{{template_dict.key}}"=="summary"){
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"summary",
+                                summary:$(this).find("textarea[name='summary']").val(),
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        window.location.href = "/edit-profile/roles/"
+                     },
+                });
+            }
+            else if("{{template_dict.key}}"=="roles"){
+                roles = ""
+                $('table.mainroles tr td.selected').each(function(){
+                    roles+=$(this).text()+"***"
+                })
+                subroles = ""
+                $('table.subroles tr td.selected').each(function(){
+                    subroles+=$(this).text()+"***"
+                })
+                if(roles.indexOf("Other") != -1){
+                    subroles = $("input.title-remove").val()+"***"
+                }
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"roles",
+                                roles:roles,
+                                subroles:subroles,
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        window.location.href = "/edit-profile/job-preferences/"
+                     },
+                });
+            }
+            else if("{{template_dict.key}}"=="resume"){
+                if($('form.upload input[type="file"]').val()){
+                    file_type = $('form.upload input[type="file"]').val().substring($('form.upload input[type="file"]').val().lastIndexOf(".")+1)
+                    $.ajax({
+                         type:"POST",
+                         url:'/ajax/',
+                         data : {name:"resume",
+                                    file_name:file_name,
+                                    type:"resume",
+                                    file_type:file_type,
+                                    size:file_size,
+                                    linkedin_url:$(this).find("input[name='linkedin_url']").val(),
+                                    personal_website_url:$(this).find("input[name='personal_website_url']").val(),
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                    },
+                         success: function(data){
+                            external_src = data
+                            upload_file_to_aws(external_src)
+                         },
+                    });
+                }
+                else{
+                    $.ajax({
+                         type:"POST",
+                         url:'/ajax/',
+                         data : {name:"resume",
+                                    linkedin_url:$(this).find("input[name='linkedin_url']").val(),
+                                    personal_website_url:$(this).find("input[name='personal_website_url']").val(),
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                    },
+                         success: function(data){
+                            window.location.href = "/edit-profile/video-resume/"
+                         },
+                    });
+                }
+            }
+            else if("{{template_dict.key}}"=="video-resume"){
+                file_type = $('form.upload input[type="file"]').val().substring($('form.upload input[type="file"]').val().lastIndexOf(".")+1)
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"resume",
+                                file_name:file_name,
+                                type:"video resume",
+                                file_type:file_type,
+                                size:file_size,
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        external_src = data
+                        upload_file_to_aws(external_src)
+                     },
+                });
+            }
+            else if("{{template_dict.key}}"=="job-preferences"){
+                location_list = ""
+                $('.list-add li input').each(function(){
+                    if($(this).is(':checked')){
+                        location_list += $(this).attr("name")+"***"
+                    }
+                })
+                $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data : {name:"location",
+                                location_list:location_list,
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                     success: function(data){
+                        window.location.href="/edit-profile/resume/"
+                     },
+                });
+            }
+            else if("{{template_dict.key}}"=="submit"){
+                if(!$(this).find(".save").hasClass("not-complete")){
+                    company_list = ""
+                        $('.list-add li input').each(function(){
+                            company_list += $(this).val()+"***"
+                        })
+                    $.ajax({
+                         type:"POST",
+                         url:'/ajax/',
+                         data : {name:"submit-application",
+                                    company_list:company_list,
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                    },
+                         success: function(data){
+                            window.location.href="/profile/"
+                         },
+                    });
+                }
+            }
+
+
+    });
+
+      var file_size
+        var file_name
+      $('.upload input[type="file"]').on('change', function(evt) {
+            file_size = this.files[0].size;
+            fullPath = $(this).val()
+            var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+            var filename = fullPath.substring(startIndex);
+            if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                filename = filename.substring(1);
+            }
+            file_name = filename
+      });
+
+    function upload_file_to_aws(external_src){
+        file_extension = $('form.upload input[type="file"]').val().substring($('form.upload input[type="file"]').val().lastIndexOf(".")+1)
+        var formData = new FormData();
+        formData.append('key','media/uploads/'+external_src+'.'+file_extension)
+        formData.append('file', $('input[type=file]')[0].files[0]);
+        $.ajax({
+             type:"POST",
+             url:'http://resumehost.s3.amazonaws.com/',
+             data: formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                if (xhr.upload) {
+                    xhr.upload.addEventListener('progress', function(evt) {
+                        var percent = (evt.loaded / evt.total) * 100;
+                        $(".bottom-panel").html('<div class="progress-container">\
+                                                    <div class="progress"><span class="progress-text">UPLOADING '+Math.round(percent)+'%</span></div></div>\
+                                                <div class="progress-sub">Your file is uploading. Please\
+                                                    keep page open until it\'s done.</div>')
+                        $('.progress-container .progress').css("width",percent+"%")
+                    }, false);
+                }
+                return xhr;
+            },
+             success: function(data){
+                    $.ajax({
+                         type:"POST",
+                         url:'/ajax/',
+                         data : {name:"verify-upload",
+                                    external_src:external_src,
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                    },
+                         success: function(data){
+                            if("{{template_dict.key}}"=="resume"){
+                                window.location.href = "/edit-profile/video-resume/"
+                            }
+                            else{
+                                window.location.href = "/edit-profile/submit/"
+                            }
+                         },
+                    });
+             },
+        });
+    }
+
+    var date_delete
+
+    $('body').on('click','.upload-link-video-resume',function(e){
+        e.preventDefault();
+        if(!$('.fa-times').is(e.target) && $('.fa-times').has(e.target).length === 0){
+            video_src = $(this).attr("data-src")
+            video_src = video_src
+            video_title = $(this).attr("data-title")
+            $('#video-resume-cover .video-title').text(video_title)
+            $('#video-resume-cover .cover-sub-container').append('<video width="100%" controls autoplay>\
+                                                                          <source src="'+video_src+'" type="video/mp4">\
+                                                                          Your browser does not support HTML5 video.\
+                                                                    </video>')
+            $('#video-resume-cover').show()
+        }
+    });
+
+
+
+$('body').on("click",".add-li",function(){
+    li_html = $('.list-add').find("li").html()
+    if("{{template_dict.key}}" == "submit"){
+        placeholder_name = "Company Name"
+    }
+    else{
+        placeholder_name = "City & State"
+    }
+    $('.list-add').append("<li><input placeholder='"+placeholder_name+"'/><i class='fa fa-times'></i></li>")
+})
+
+$('body').on("click",".list-add li .fa-times",function(){
+    $(this).parents(".list-add li").remove();
+})
+
+
+$('body').on("click",".mainroles tr td",function(){
+    $('table.subroles').html("")
+    $('.title-remove').remove();
+    if($(this).hasClass("selected")){
+        $('.selected').toggleClass("selected");
+    }
+    else{
+        $('.selected').toggleClass("selected");
+        $(this).toggleClass("selected");
+        sub_roles = $(this).attr("data-subroles").split(",")
+        sub_roles_html = "<tr>"
+        column_counter = 1;
+        for(role in sub_roles){
+            if(column_counter == 3){
+                sub_roles_html += "<td>"+sub_roles[role]+"</td></tr><tr>"
+                column_counter = 1
+            }
+            else{
+                sub_roles_html += "<td>"+sub_roles[role]+"</td>"
+                column_counter += 1
+            }
+        }
+        sub_roles_html += "</tr>"
+        if(sub_roles_html.length > 20){
+            $('table.subroles').before("<div class='title title-remove'>What role are you currently seeking? (Choose up to 3)</div>")
+            $('table.subroles').append(sub_roles_html)
+        }
+        if($(this).text() == "Other"){
+            $('table.subroles').before("<div class='title title-remove'>What is your desired career?</div>")
+            $('table.subroles').append("<input class='title-remove' type='text' placeholder='Desired career'/>")
+        }
+    }
+})
+$('body').on("click",".subroles tr td",function(){
+        $(this).toggleClass("selected");
+})
+
+$('.help-submit').click(function(){
+    $.ajax({
+         type:"POST",
+         url:'/ajax/',
+         data : {name:"help",
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+         success: function(data){
+            $('.help-submit').parents(".cover-sub-container").html("<i class='fa fa-times'></i>We have received your request for assistance, and will be getting back to you shortly via email.")
+         },
+    });
+})
+
+
+{% endblock script %}

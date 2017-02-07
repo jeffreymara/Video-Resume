@@ -1,0 +1,306 @@
+html{
+
+        }
+        header{
+            background-color: #fff;
+            /*padding: 0 10% 0 15%;*/
+            width: 100%;
+            box-sizing: border-box;
+        }
+        header .title{
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: .2em;
+            color: #333;
+            padding: 20px 0;
+            display: inline-block;
+        }
+        header .title:hover{
+            color: #1c1c69; /*#e82f3a;*/
+        }
+        header ul.links{
+            display: inline-block;
+            float: right;
+            cursor: pointer;
+            height: 100%;
+            /* padding: 20px 0; */
+            box-sizing: border-box;
+        }
+        header ul.links li{
+            font-size: 14px;
+            display: inline-block;
+            height: 100%;
+            padding: 20px 20px;
+            position: relative;
+        }
+        header ul.links li ul{
+                position: absolute;
+                background: #fff;
+                width: 100%;
+                top: 50px;
+                display: none;
+        }
+        header ul.links li:hover > ul{
+            display: block !important;
+        }
+         header ul.links li ul{
+            padding: 10px 10px;
+         }
+        header ul.links li ul li{
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        header ul.links li ul li:hover{
+            background-color: #34c;
+            color: white;
+        }
+        header ul.links li:hover{
+            color: #1c1c69; /*#e82f3a;*/
+        }
+        header ul.links li.selected{
+            border-top: 4px solid #1c1c69; /*#e82f3a;*/
+        }
+        header ul.links li.selected span{
+            color: white;
+            background-color: #1c1c69; /*#e82f3a;*/
+            border-radius: 5px;
+            padding: 5px 20px;
+            font-weight: bold;
+        }
+
+        header .fa-chevron-down{
+            color: #1c1c69; /* #f82f3a; */
+            padding-left: 5px;
+            font-size: 10px;
+            position: relative;
+            bottom: 2px;
+        }
+        body{
+            margin: 0;
+            background-color: #edf1f5;
+            font-family: 'Open Sans', sans-serif;
+        }
+        ul, ol{
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+
+        ul, ol{
+            padding: 0;
+            list-style-type: none;
+        }
+        a{
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .cover .fa-times{
+                top: -9px;
+                right: -5px;
+                position: absolute;
+                cursor: pointer;
+                color: #777;
+                padding: 20px;
+        }
+        .cover{
+            background-color: rgba(0,0,0,0.6);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            display: none;
+            overflow-y: auto;
+        }
+        .cover-sub-container{
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            margin: 50px auto;
+            width: 90%;
+            max-width: 580px;
+            background-color: white;
+            padding: 40px;
+            border-radius: .25rem;
+            box-shadow: 0 1px 0 rgba(0,0,0,.25);
+            border: 2px solid #e8e8e8;
+            position: relative;
+        }
+        .two-column-container{
+            width: 1300px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        .two-column-container div.column{
+            float: left;
+            display: inline-block;
+            padding: 0 25px;
+            box-sizing: border-box;
+            width: 50%;
+        }
+        .two-column-container .column:first-child{
+            padding-left: 0;
+        }
+        #foot {
+            background-color: #fff;
+            border-top: 1px solid #eee;
+        }
+        #foot.panel {
+            text-align: justify;
+            text-align-last: justify;
+            -moz-text-align-last: justify;
+            padding: 40px 100px 200px 100px;
+            color: #444;
+        }
+        .panel {
+            text-align: center;
+            padding: 40px 0;
+            color: #444;
+            background-color: #fff;
+        }
+        #foot ul{
+            display: inline-block;
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+            vertical-align: top;
+        }
+        #foot ul li{
+            line-height: 32px;
+        }
+        #foot ul li .fa{
+            font-size: 24px;
+        }
+        #foot ul li.title{
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 15px;
+
+        }
+        #foot .wrapper{
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #cover-sign-in .cover-sub-container{
+            padding: 10px 40px 20px 40px;
+            max-width: 440px;
+        }
+        #cover-sign-in .error-handle{
+            color: tomato;
+            font-size: 13px;
+            padding: 10px 0;
+            visibility: hidden;
+        }
+        #cover-sign-in input{
+            display: block;
+            padding: 10px 8px;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 10px 0;
+            outline: 0;
+            border: 2px solid #ccc;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        #cover-sign-in input[type="submit"]{
+            background-color: #36c;
+            color: white;
+            border: none !important;
+        }
+        #cover-sign-in input:focus{
+            border: 2px solid #249ef7;
+        }
+        #cover-sign-in .sign-up-button div{
+            text-align: center;
+            border: 2px solid #36c;
+            color: #36c;
+            margin-top: 35px;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #cover-sign-in .forgot-password{
+            text-align: center;
+            font-size: 14px;
+            color: #249ef7;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #cover-upload .title{
+                font-size: 22px;
+                font-weight: bold;
+        }
+        #cover-upload .subtitle{
+                font-size: 12px;
+                margin-bottom: 10px;
+        }
+        .upload input[type='file'] {
+            border: 3px dashed #999;
+            padding: 140px 50px 10px 50px;
+            cursor: move;
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .upload input[type='file']:before {
+            content: "Drag & drop your file here";
+            display: block;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 40px;
+            margin: -25px 0 0 -100px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #999;
+            text-align: center;
+        }
+        .upload input[type="submit"]{
+            margin-top: 10px;
+            display: block;
+            float: right;
+            background-color: #36c;
+            color: white;
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload input[type="text"]{
+            width: 100%;
+            padding: 6px 7px;
+            margin-bottom: 11px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .title.text{
+            font-size: 20px;
+            margin-bottom: 30px
+        }
+        .panel.text{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+            padding: 40px;
+        }
+        .panel.video-resume-blog{
+            text-align: left;
+            text-align-last: left;
+            -moz-text-align-last: left;
+        }
+        .head-wrap{
+            max-width: 1300px;
+            padding: 0;
+            margin: 0 auto;
+        }

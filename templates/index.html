@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Video Resume</title>
+    <style>
+        #steps_title {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+        #three_steps {
+            list-style-type: none;
+            display: inline-block;
+            width: 800PX;
+        }
+        #three_steps li {
+            display: inline-block;
+            max-width: 250px;
+            width: 95%;
+            padding: 0 40px 0 40px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            vertical-align: top;
+        }
+        .step_number {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .top-container{
+            background-image: url("/static/images/vrbpc.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .top-container .title{
+            padding: 100px 0 50px 15%;
+            font-size: 60px;
+        }
+        .top-container .title .top-title{
+            color: #444;
+            font-weight: bold;
+        }
+        .top-container .title .bottom-title{
+            color: #1c1c69; /*#e82f3a;*/
+            font-weight: bold;
+        }
+        .top-container .line{
+            height: 5px;
+            width: 100px;
+            background-color: #1c1c69; /*#e82f3a;*/
+            margin: 35px 0;
+        }
+        .top-container .subtitle{
+            font-size: 20px;
+            color: #666;
+            max-width: 500px;
+        }
+        .button{
+            display: inline-block;
+            margin-right: 20px;
+            padding: 15px 30px;
+            background-color: #1c1c69; /*#e82f3a;*/
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button-2{
+            background-color: #444;
+        }
+        .panel#panel_1{
+            background-color: #1c1c69;
+            color: white;
+        }
+        .column{
+            text-align: left;
+        }
+        .column .text{
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 0 30px 0;
+        }
+        .notes-wrapper .title{
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 0;
+        }
+        .notes-wrapper .subtext{
+            line-height: 30px;
+        }
+        .notes-wrapper .vert-bar{
+            background-color: #1c1c69;
+            width: 1px;
+            height: 35px;
+            margin: 15px 0px;
+        }
+        .center-wrap{
+            transform: translateY(50%);
+        }
+        .center-wrap .bar{
+            height: 5px;
+            background-color:  #1c1c69;
+            width: 80px;
+            margin-bottom: 21px;
+        }
+        .center-wrap .red-text{
+            color: #1c1c69;
+        }
+    </style>
+{% endblock head %}
+{% block body %}
+<div class="top-container">
+    <div class="title">
+        <div class="top-title">LAND YOUR</div>
+        <div class="bottom-title">DREAM JOB</div>
+        <div class="line"></div>
+        <div class="subtitle">We help highly motivated candidates stand out in the hiring process</div>
+        <div class="button-container">
+            <a href="/sign-up/"><div class="button button-1">I want to get hired</div></a>
+            <a href="/talent/"><div class="button button-2">I want to hire</div></a>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="two-column-container" style="width: 70%">
+        <div class="column" style="width:50%; padding-left: 0">
+            <div class="center-wrap">
+                <div class="bar"></div>
+                <div class="text">MATCH COMPANIES WITH FUTURE <span class="red-text">TOP PERFORMERS</span></div>
+                <div class="sub-text">We provide talent and companies with the tools to succeed in the hiring process</div>
+            </div>
+        </div>
+        <div class="column" style="width:50%">
+            <div class="notes-wrapper">
+                <div class="title">Snap Shots</div>
+                <div class="subtext">Employers spend ~6 seconds per resume – we allow candidates to put best foot forward in those 6 seconds</div>
+                <div class="vert-bar"></div>
+                <div class="title">Video Resume</div>
+                <div class="subtext">Our platform brings candidates to life – showcases personality, charisma and presentation skills</div>
+                <div class="vert-bar"></div>
+                <div class="title">Refferals</div>
+                <div class="subtext">The best hires come through introductions - we streamline the process</div>
+                <div class="vert-bar"></div>
+                <div class="title">Algorithmic Matching</div>
+                <div class="subtext">Our machine learning algorithms help talent and companies find the right fit</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="panel" id="panel_1">
+            <div id="steps_title">How it works</div>
+            <ul id="three_steps">
+                <li><div class="step_number"><i class="fa fa-user"></i></div><div class="step_text">Create your profile</div></li>
+                <li><div class="step_number"><i class="fa fa-institution"></i></div><div class="step_text">Upload to companies</div></li>
+                <li><div class="step_number"><i class="fa fa-briefcase"></i></div><div class="step_text">Land your dream job</div></li>
+            </ul>
+        </div>
+{% endblock body %}
+{% block script %}
+
+
+
+{% endblock script %}

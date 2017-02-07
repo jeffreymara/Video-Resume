@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static "base2.css" %}">
+    <link rel="icon" href="{% static "logo1.png" %}">
+    <script src="https://s3.amazonaws.com/resumehost/static/dropzone.js"></script>
+    <link rel="stylesheet" href="https://s3.amazonaws.com/resumehost/static/dropzone.css">
+    {% block head %}{% endblock head %}
+    <style>
+
+
+    </style>
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1266474773410547'); // Insert your pixel ID here.
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1266474773410547&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+</head>
+<body>
+    <header>
+        <div class="head-wrap">
+            <a href="/"><div class="title">HIRED TUBE</div></a>
+
+            {% if userinfo%}
+                <ul class="links">
+                    {%if userinfo.submitted%}
+                        <a href="/profile/"><li>View Profile</li></a>
+                    {%else%}
+                        <a href="/edit-profile/summary/"><li>Edit Profile</li></a>
+                    {%endif%}
+                    <a href="javascript:logout();"><li>Logout</li></a>
+                </ul>
+            {% else %}
+                <ul class="links">
+                    <li>Candidates <i class="fa fa-chevron-down"></i>
+                        <ul>
+                           <a href="/candidates/"><li>About</li></a>
+                        </ul>
+                    </li>
+                    <li>Companies <i class="fa fa-chevron-down"></i>
+                        <ul>
+                           <a href="/companies/"><li>About</li></a>
+                        </ul>
+                    </li>
+                    <li class="pop" data-pop="cover-sign-in"><span>Sign In</span></li>
+                    <a href="/sign-up/"><li class="selected"><span>Sign Up</span></li></a>
+                </ul>
+            {%endif%}
+        </div>
+    </header>
+    {% block body %}{% endblock body %}
+    <div class="panel" id="foot">
+        <div class="wrapper">
+            <ul>
+                <li class="title">
+                    Contact Info
+                </li>
+                <li>
+                    info@hiredtube.com
+                </li>
+            </ul>
+            <ul>
+                <li class="title">
+                    Social
+                </li>
+                <li>
+                    <i class="fa fa-facebook-square"></i> &nbsp; &nbsp; &nbsp; <i class="fa fa-twitter-square"></i> &nbsp; &nbsp; &nbsp; <i class="fa fa-linkedin-square"></i>
+                </li>
+            </ul>
+            <ul>
+                <li class="title">
+                    More Hired Tube
+                </li>
+                <li>
+                    <a href="/candidates/">Candidates</a>
+                </li>
+                <li>
+                    <a href="/companies/">Companies</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="title">
+                   <a href="/companies/">Resources</a>
+                </li>
+                <li>
+                    <a href="/privacy-policy/">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="/terms-and-conditions/">Terms and Conditions</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="cover" id="cover-sign-in">
+        <div class="cover-sub-container">
+            <i class="fa fa-times"></i>
+            <div class="error-handle">The e-mail or password you entered is incorrect.</div>
+            <form class="sign-in">
+                <input id="email" type="text" placeholder="Email Address" required/>
+                <input id="password" type="password" placeholder="Password" required/>
+                <input type="submit" value="Log In"/>
+            </form>
+            <div class="forgot-password">
+                Forgot password?
+            </div>
+            <a class="sign-up-button" href="/sign-up/">
+                <div>Sign Up</div>
+            </a>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script>
+        var upload_type
+        $('body').on("click",".pop",function(){
+           element = $(this).attr("data-pop")
+           $("#"+element).show();
+        });
+        $('body').on("click",".cover .fa-times",function(){
+            $(this).parents(".cover").hide();
+        });
+        $('body').on("click",".cover",function(e){
+        	if(!$('.cover-sub-container').is(e.target) && $('.cover-sub-container').has(e.target).length === 0){
+        		$(this).hide();
+        		$("#video-resume-cover").find("video").remove();
+        	}
+        });
+        $('body').on("submit","form.sign-in",function(e){
+            e.preventDefault();
+            $("#cover-sign-in .error-handle").css("visibility","hidden")
+            $.ajax({
+                type:"POST",
+                url:'/ajax/',
+                data: {
+                    name: "log_in",
+                    email: $('.sign-in #email').val(),
+                    password: $('.sign-in #password').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(data){
+                    if(data=="success"){
+                        window.location.href = "/edit-profile/summary/";
+                    }
+                    else if(data=="0"){
+                        $("#cover-sign-in .error-handle").css("visibility","visible")
+                    }
+                },
+            });
+            return false;
+        });
+
+        $("button").click(do_it);
+
+        function do_it() {
+            var obj = {}, txt="";
+                obj = {
+                    video: true,
+                    audio: true
+                };
+                txt = "<video>";
+            navigator.webkitGetUserMedia(obj, function(stream) {
+                $("#result").empty();
+                var output = $(txt).appendTo("#result")[0],
+                    source = window.webkitURL.createObjectURL(stream);
+                output.autoplay = true;
+                output.src = source;
+                console.log(stream);
+                window.a = stream; //debug
+                $("span#name").html("Camera name: <b>" + stream.videoTracks[0].label + "</b><br>" + "Mic name: <b>" + stream.audioTracks[0].label + "</b>");
+            }, function(err) {
+                console.log(err);
+                err.code == 1 && (alert("You can click the button again anytime to enable."))
+            });
+        }
+
+        function logout(){
+            $.ajax({
+                     type:"POST",
+                     url:'/ajax/',
+                     data:{name:"logout",
+                           csrfmiddlewaretoken:'{{ csrf_token }}'},
+                     success: function(data){
+                            window.location.href = "/"
+                     },
+            });
+        }
+
+    </script>
+    <script>{% block script %}{% endblock script %}</script>
+    <script>
+
+        </script>
+
+</body>
+</html>

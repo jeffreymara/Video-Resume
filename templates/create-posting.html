@@ -1,0 +1,97 @@
+{% extends "base-sign-up.html" %}
+{% block head_2 %}<title>Video Resume | Create Posting</title>{% endblock head_2 %}
+{% block title %}Create New Job Posting{% endblock title %}
+{% block subtitle %}Job Summary{% endblock subtitle %}
+{% block form %}
+    <form>
+        <table>
+            <tr>
+                <td>
+                    First Name<span class="asterix">*</span>
+                </td>
+                <td>
+                    <input type="text" placeholder="Job Title">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Last Name<span class="asterix">*</span>
+                </td>
+                <td>
+                    <input type="text" placeholder="Job Description">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Email<span class="asterix">*</span>
+                </td>
+                <td>
+                    <input type="text" placeholder="you@example.com">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password<span class="asterix">*</span>
+                </td>
+                <td>
+                    <input type="password" placeholder="Create password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Where You Live<span class="asterix">*</span>
+                </td>
+                <td>
+                    <input type="password" placeholder="City & State">
+                </td>
+            </tr>
+        </table>
+        <div class="next-container">
+            <div class="next-container-top">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="next-button">GET STARTED</div>
+            <div style="clear: both;"></div>
+        </div>
+    </form>
+{% endblock form %}
+{% block page_2_html %}
+    '<form>\
+                            <table>\
+                                <tr>\
+                                    <td>\
+                                        Field 1<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <input>\
+                                    </td>\
+                                </tr>\
+                                <tr>\
+                                    <td>\
+                                        Field 2<span class="asterix">*</span>\
+                                    </td>\
+                                    <td>\
+                                        <input>\
+                                    </td>\
+                                </tr>\
+                            </table>\
+                            <div class="next-button">CONTINUE</div><div style="clear: both;"></div>\
+                        </form>'
+{% endblock page_2_html %}
+<!--{% comment %} {% block additional_script %}
+    form_index = 0
+$('body').on('click','.next-button',function(e){
+    form_index+=1
+    if(form_index==1){
+        $('form').html({% block page_2_html %}{% endblock page_2_html %})
+        }
+        else if(form_index == 2){
+            $('form').html({% block page_3_html %}{% endblock page_3_html %})
+            $('.column .left-text').html({% block lefttext_3 %}{% endblock %})
+
+        }
+
+    });
+{% endblock additional_script %} {% endcomment %}-->
